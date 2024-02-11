@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/connect";
+import prisma from "@/prisma/client";
 import { NextResponse } from "next/server";
 
 
