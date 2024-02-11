@@ -1,6 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
+import { getServerSession } from "next-auth";
+import prisma from "@/prisma/client";
+import { notFound } from "next/navigation";
+import { Order } from "@prisma/client";
+const OrdersPage = async () => {
+  const[orders, setOrders] = useState([])
+  const session = await getServerSession();
+  if(session){
+try {
+  if(session.user.isAdmin){
+    const getOrders = await prisma.order.findMany();
 
-const OrdersPage = () => {
+    setOrders(getOrders)
+  }
+} catch (error) {
+  
+}
+  }
   return (
     <div className="p-4 lg:px-20 xl:px-40">
       <table className="w-full border-separate border-spacing-3">
